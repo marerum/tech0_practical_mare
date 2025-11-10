@@ -11,6 +11,14 @@ export default function CreatePage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(formRef.current);
+//追加：formDataからcustomer_idを取得し変数に格納
+    const customerId = formData.get("customer_id");
+    if (!customerId) {
+      alert("Customer IDは必須項目です。");
+      //処理を中断
+      return;
+    }
+
     await createCustomer(formData);
     router.push(`./create/confirm?customer_id=${formData.get("customer_id")}`);
   };
